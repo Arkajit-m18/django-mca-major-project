@@ -1,0 +1,188 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
+    <script src="https://use.typekit.net/hoy3lrg.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+
+  <body>
+    <div id="frame">
+      <div id="sidepanel">
+        <div id="profile">
+          <div class="wrap">
+            <img id="profile-img" src="https://images.vexels.com/media/users/3/139911/isolated/preview/1afb4038427b2bd8edd275940aea269d-chat-service-icon-by-vexels.png" class="online" alt="" />
+            <h3>{{ room_name }}</h3>
+          </div>
+        </div>
+        <div id="contacts">
+          <ul id="active-users">
+
+          </ul>
+        </div>
+      </div>
+      <div class="content">
+        <div class="contact-profile">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRieuoK9cN6W9kS8cJFyMJhUmVOOqNrluh0PvOGy_cz7EDtj21rOw" alt="avatar" />
+          <p>{{ user_author }}</p>
+          <div class="social-media">
+            <a href="{% url 'rooms:single' slug=room.slug %}" class="btn btn-danger btn-comment"><span class="glyphicon glyphicon-remove"></span></a>
+          </div>
+        </div>
+        <div class="messages">
+          <ul id="chat-log">
+            
+          </ul>
+        </div>
+        <div class="message-input">
+          <div class="wrap">
+          <input id="chat-message-input" type="text" placeholder="Write your message..." />
+          <button id="chat-message-submit" class="submit">
+            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+          </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/reconnecting-websocket.js' %}"></script>
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script>
+        var roomName = {{ room_name_json }};
+        var username = {{ username }};
+
+        var chatSocket = new ReconnectingWebSocket(
+            'ws://' + window.location.host +
+            '/ws/chat/' + roomName + '/');
+
+        chatSocket.onopen = function(e) {
+          fetchMessages();
+          document.getElementById('active-users').innerHTML = "";
+          fetchUsers();
+        }
+        activeUsers = []
+        chatSocket.onmessage = function(e) {
+            var data = JSON.parse(e.data);
+            if (data['command'] === 'messages') {
+              for (let i = 0; i < data['messages'].length; i++) {
+                createMessage(data['messages'][i]);
+              }
+            } else if (data['command'] === 'new_message'){
+              createMessage(data['message']);
+            } else if (data['command'] === 'users'){
+              for (let i = 0; i < data['names'].length; i++) {
+                populateUsers(data['names'][i]);
+              }
+            }
+        };
+
+        chatSocket.onclose = function(e) {
+          console.error('Chat socket closed unexpectedly');
+        };
+
+        document.querySelector('#chat-message-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {
+                document.querySelector('#chat-message-submit').click();
+            }
+        };
+
+        document.querySelector('#chat-message-submit').onclick = function(e) {
+            var messageInputDom = document.getElementById('chat-message-input');
+            var message = messageInputDom.value;
+            chatSocket.send(JSON.stringify({
+                'command': 'new_message',
+                'message': message,
+                'from': username,
+                'room_name': roomName
+            }));
+
+            messageInputDom.value = '';
+        };
+
+        function fetchMessages() {
+          chatSocket.send(JSON.stringify({'command': 'fetch_messages', 'room_name': roomName }));
+        }
+
+        function fetchUsers() {
+          chatSocket.send(JSON.stringify({'command': 'fetch_users', 'room_name': roomName}));
+        }
+
+        function populateUsers(username) {
+          var userListTag = document.createElement('li');
+          var divTag = document.createElement('div');
+          var hTag = document.createElement('h4');
+          var imgTag = document.createElement('img');
+          userListTag.className = 'contact'
+          divTag.className = 'wrap'
+          imgTag.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRieuoK9cN6W9kS8cJFyMJhUmVOOqNrluh0PvOGy_cz7EDtj21rOw";
+          hTag.textContent = username;
+          divTag.appendChild(imgTag);
+          divTag.appendChild(hTag);
+          userListTag.appendChild(divTag);
+          document.querySelector('#active-users').appendChild(userListTag);
+        }
+
+        function createMessage(data) {
+          var author = data['author'];
+          var msgListTag = document.createElement('li');
+          var imgTag = document.createElement('img');
+          var pTag = document.createElement('p');
+          var bTag = document.createElement('B');
+          bTag.textContent = data.author + ':  ';
+          bTag.style.color = random_text_color();
+          if (username !== data.author) {
+            pTag.appendChild(bTag);
+          }
+          pTag.appendChild(document.createTextNode(data.content));
+          imgTag.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRieuoK9cN6W9kS8cJFyMJhUmVOOqNrluh0PvOGy_cz7EDtj21rOw';
+          
+          if (author === username) {
+            msgListTag.className = 'sent';
+          } else {
+            msgListTag.className = 'replies';
+          }
+          msgListTag.appendChild(imgTag);
+          msgListTag.appendChild(pTag);
+          document.querySelector('#chat-log').appendChild(msgListTag);
+          scrollToBottom();
+        }
+
+        function scrollToBottom() {
+        // Selectors
+        var messages = jQuery('#chat-log');
+        var content = jQuery('.messages');
+        var contentHeight = content.prop('scrollHeight');
+        var newMessage = messages.children('li:last-child');
+        // Heights
+        var clientHeight = messages.prop('clientHeight');
+        var scrollTop = messages.prop('scrollTop');
+        var scrollHeight = messages.prop('scrollHeight');
+        var newMessageHeight = newMessage.innerHeight();
+        var lastMessageHeight = newMessage.prev().innerHeight();
+        console.log(clientHeight, scrollTop, contentHeight, scrollHeight, newMessageHeight, lastMessageHeight);
+        if (contentHeight >= scrollHeight  - (newMessageHeight + lastMessageHeight)) {
+            content.scrollTop(contentHeight);
+        }
+      }
+
+      function random_text_color() {
+        var r = Math.floor(Math.random() * 256);
+        var g = Math.floor(Math.random() * 256);
+        var b = Math.floor(Math.random() * 256);
+        var textColor = `rgb(${r}, ${g}, ${b})`;
+        return textColor;
+      }
+    </script>
+  </body>
+</html>

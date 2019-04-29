@@ -1,0 +1,42 @@
+{% extends "rooms/room_base.html" %}
+{% block preroom %}
+    <div class="col-md-6">
+        <div class="content">
+            {% if user.is_authenticated %}
+                <h1 class="display-3">Welcome back!</h1>
+                <p class="lead">{{ user.email }}</p>
+            {% endif %}
+            <h1 class="display-5">Chat Rooms</h1>
+            <p class="lead">Welcome to the Chat Rooms page</p>
+            <hr>
+        </div>
+        {% if user.is_authenticated %}
+            <a href="{% url 'rooms:new' %}" class="btn btn-lg btn-fill btn-warning"><i class="fas fa-comment-medical"></i> Create New Room</span></a>
+        {% endif %}
+    </div>
+{% endblock %}
+{% block room_content %}
+    <div class="col-md-6">
+        <div class="row">
+            <h4 class="display-4 my-3">Currently active rooms:</h4>
+        </div>
+        <div class="list-group my-2">
+            {% for room in object_list %}
+                <a href="{% url 'rooms:single' slug=room.slug %}" {% if forloop.counter|divisibleby:2 %}class="list-group-item list-group-item-primary"{% else %}class="list-group-item list-group-item-light"{% endif %}>
+                    <h3 class="title list-group-item-heading">{{ room.name }}</h3>
+                    <div class="list-group-item-text container-fluid">
+                        {{ room.description | safe }}
+                        <div class="row">
+                            <div class="col-md-4">
+                                <span class="badge badge-dark">
+                                    {{ room.members.count }}
+                                    member{{ room.members.count | pluralize }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

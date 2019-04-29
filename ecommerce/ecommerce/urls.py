@@ -62,6 +62,9 @@ urlpatterns = [
     path('posts/', include('posts.urls', namespace = 'posts')),
     path('groups/', include('groups.urls', namespace = 'groups')),
 
+    path('rooms/', include('rooms.urls', namespace = 'rooms')),
+    path('chat/', include('chat.urls', namespace = 'chat')),
+
     path('admin/', admin.site.urls),
 ]
 

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title_block %}Chat Rooms{% endblock %}
+{% block content %}
+    <div class="row">
+        {% block preroom %}{% endblock %}
+        {% block room_content %}{% endblock %}
+        {% block postroom %}{% endblock %}
+    </div>
+{% endblock %}

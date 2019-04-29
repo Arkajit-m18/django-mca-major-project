@@ -7,6 +7,14 @@
 {% url 'products:all_products' as all_products_url %}
 {% url 'carts:cart_home' as cart_url %}
 {% url 'accounts:accounts_home' as accounts_home_url %}
+{% url 'marketing_pref' as marketing_pref_url %}
+{% url 'digital_library' as digital_library_url %}
+{% url 'products:products-history' as products_history_url %}
+{% url 'groups:all' as groups_home_url %}
+{% url 'groups:create' as new_group_url %}
+{% url 'posts:create' as new_post_url %}
+{% url 'rooms:all' as rooms_home_url %}
+{% url 'rooms:new' as new_room_url %}
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
     <div class="container">
@@ -40,9 +48,9 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                           <a class="dropdown-item {% if request.path == accounts_home_url %}active{% endif %}" href="{{ accounts_home_url }}">Home</a>
                           <a class="dropdown-item" href="{{ accounts_home_url }}#billing">Billing</a>
-                          <a class="dropdown-item" href="{% url 'marketing_pref' %}">Preferences</a>
-                          <a class="dropdown-item" href="{% url 'digital_library' %}">Library</a>
-                          <a class="dropdown-item" href="{% url 'products:products-history' %}">History</a>
+                          <a class="dropdown-item {% if request.path == marketing_pref_url %}active{% endif %}" href="{% url 'marketing_pref' %}">Preferences</a>
+                          <a class="dropdown-item {% if request.path == digital_library_url %}active{% endif %}" href="{% url 'digital_library' %}">Library</a>
+                          <a class="dropdown-item {% if request.path == products_history_url %}active{% endif %}" href="{% url 'products:products-history' %}">History</a>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="{{ logout_url }}">Logout</a>
                         </div>
@@ -52,9 +60,18 @@
                             Group
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{% url 'groups:all' %}">Groups</a>
-                            <a class="dropdown-item" href="{% url 'groups:create' %}">Create Group</a>
-                            <a class="dropdown-item" href="{% url 'posts:create' %}">Post</a>
+                            <a class="dropdown-item {% if request.path == groups_home_url %}active{% endif %}" href="{{ groups_home_url }}">Groups</a>
+                            <a class="dropdown-item {% if request.path == new_group_url %}active{% endif %}" href="{{ new_group_url }}">Create Group</a>
+                            <a class="dropdown-item {% if request.path == new_post_url %}active{% endif %}" href="{{ new_post_url }}">Post</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Chat Room
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item {% if request.path == rooms_home_url %}active{% endif %}" href="{{ rooms_home_url }}">Chat Rooms</a>
+                            <a class="dropdown-item {% if request.path == new_room_url %}active{% endif %}" href="{{ new_room_url }}">Create Chat Room</a>
                         </div>
                     </li>
                 {% else %}

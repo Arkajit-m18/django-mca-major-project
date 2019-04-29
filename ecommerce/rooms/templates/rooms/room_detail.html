@@ -1,0 +1,33 @@
+{% extends 'rooms/room_base.html' %}
+{% block preroom %}
+    <div class="col-12">
+        <h1>{{ room.name }}</h1>
+        <hr>
+    </div>
+    <div class="col-md-4">
+        <h4 class="display-6">Member count: {{ room.members.count }}</h4>
+    </div>
+    <div class="col-md-8 btn-group">
+        {% if user in room.members.all %}
+            <a href="{% url 'rooms:leave' slug=room.slug %}" class="btn btn-lg btn-fill btn-warning"><i class="fas fa-minus-circle"></i> Leave</a>
+            <a href="{% url 'chat:room' room_name=room.name %}" class="btn btn-lg btn-fill btn-info"><i class="fas fa-comments"></i> Start Chatting</a>
+        {% else %}
+            <a href="{% url 'rooms:join' slug=room.slug %}" class="btn btn-lg btn-fill btn-warning"><i class="fas fa-check-circle"></i> Join</a>
+        {% endif %}
+        <a href="{% url 'rooms:edit' slug=room.slug %}" class="btn btn-lg btn-fill btn-success"><i class="fas fa-user-edit"></i> Edit Room</a>
+        <a href="{% url 'rooms:delete' slug=room.slug %}" class="btn btn-lg btn-fill btn-danger"><i class="fas fa-user-times"></i> Delete Room</a>
+    </div>
+    <div class="col-12">
+        <hr>
+    </div>
+{% endblock %}
+{% block room_content %}
+    <div class="col-md-4">
+        <h2>List of active members:</h2>
+        <ul class="list-group">
+            {% for member in room.members.all %}
+                <li class="list-group-item">{{ member.email }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

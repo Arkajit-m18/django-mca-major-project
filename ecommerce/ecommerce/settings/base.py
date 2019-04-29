@@ -38,7 +38,7 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'django ecommerce <my_user@gmail.com>'
 
 MANAGERS = (
-    ('Me', 'my_user@gmail.com'),
+    ('Arkajit Mondal', 'my_user@gmail.com'),
 )
 
 ADMINS = MANAGERS
@@ -58,11 +58,14 @@ INSTALLED_APPS = [
     'analytics',
     'billing',
     'carts',
+    'channels',
+    'chat',
     'groups',
     'marketing',
     'orders',
     'posts',
     'products',
+    'rooms',
     'search',
     'tags',
 ]
@@ -110,6 +113,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ecommerce.wsgi.application'
+
+ASGI_APPLICATION = 'ecommerce.routing.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 
 # Database

@@ -6,15 +6,22 @@ from . import forms
 
 def home_page(request):
     context = {
-        'title': 'Home Page',
-        'content': 'Welcome to the home page!'
+        'title': 'Simple Commerce',
+        'content': 'Welcome to Simple Commerce!',
+        'tag': 'Buying products made simple!'
     }
     return render(request, 'home_page.html', context)
 
 def about_page(request):
     context = {
-        'title': 'About Page',
-        'content': 'Welcome to the about page!'
+        'title': 'About',
+        'content': '',
+        'tag': '''
+            Never doubt before buying products again.
+            Discuss with your peers.
+            Post about any queries.
+            Never regret again!
+        '''
     }
     return render(request, 'home_page.html', context)
 
