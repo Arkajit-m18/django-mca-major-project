@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title_block %}Details{% endblock %}
+{% block content %}
+<div class="row text-center">
+    <div class="col-12">
+        <h2 class="display-4">{{ product.title }}</h2>
+        {{ product.timestamp | timesince }} ago
+        <hr>
+    </div>
+    <div class="col-12 col-md-6">
+        <p class="lead">{{ product.description | linebreaks }}</p>
+        <h4>${{ product.price }}</h4>
+        <img src="{{ product.image.url }}" alt="book.jpg" class="img-fluid" style="height: 25em; width: 20em;">
+    </div>
+    <div class="col-12 col-md-6">
+        {% include 'products/snippets/update_cart.html' with product=product cart=cart %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title_block %}Orders{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <h1 class="display-3">Orders</h1>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <th>Order ID</th>
+                    <th>Order Status</th>
+                    <th>Shipping Status</th>
+                    <th>Total</th>
+                </thead>
+                <tbody>
+                    {% for order in order_list %}
+                        <tr>
+                            <td><a href="{{ order.get_absolute_url }}">{{ order.order_id }}</a></td>
+                            <td>{{ order.status }}</td>
+                            <td>{{ order.get_shipping_status }}</td>
+                            <td>{{ order.total }}</td>
+                        </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="3">
+                                    <p class="lead">No orders yet!</p>
+                                </td>
+                            </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

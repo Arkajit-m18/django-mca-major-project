@@ -1,0 +1,15 @@
+{% extends 'posts/post_base.html' %}
+{% block prepost %}
+    <div class="col-12">
+        <h1 class="display-5">{{ post_user.email }}</h1>
+        <hr>
+    </div>
+{% endblock %}
+{% block post_content %}
+    <div class="col-md-8">
+        {% for post in post_list %}
+            {% include 'posts/_post.html' %}
+            <hr>
+        {% endfor %}
+    </div>
+{% endblock %}

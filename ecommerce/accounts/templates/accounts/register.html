@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title_block %}Register{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <h1 class="display-3">Register</h1>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="col-sm-6 col-12">
+                <form method="POST">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <button type="submit" class="btn btn-primary my-3">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

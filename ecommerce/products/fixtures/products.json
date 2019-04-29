@@ -1,0 +1,58 @@
+[
+{
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+        "title": "Kafka on the Shore",
+        "slug": "kafka-on-the-shore",
+        "description": "Haruki Murakami needs no introduction",
+        "price": "12.99",
+        "image": "products/2957124884/2957124884.jpg",
+        "featured": true,
+        "active": true,
+        "timestamp": "2019-04-12T13:01:30.526Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+        "title": "The Girl on the Train",
+        "slug": "the-girl-on-the-train",
+        "description": "Nothing like a debut with a mystery thriller!",
+        "price": "10.50",
+        "image": "products/2522496906/2522496906.jpg",
+        "featured": false,
+        "active": true,
+        "timestamp": "2019-04-12T13:01:30.526Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+        "title": "Six of Crows",
+        "slug": "six-of-crows",
+        "description": "A fantasy thriller!",
+        "price": "20.88",
+        "image": "products/1923919743/1923919743.jpg",
+        "featured": true,
+        "active": true,
+        "timestamp": "2019-04-12T16:32:32.255Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+        "title": "Turtles all the way down",
+        "slug": "turtles-all-the-way-down",
+        "description": "Another masterpeice by John Green",
+        "price": "22.22",
+        "image": "products/76301916/76301916.jpg",
+        "featured": true,
+        "active": true,
+        "timestamp": "2019-04-12T16:33:31.230Z"
+    }
+}
+]

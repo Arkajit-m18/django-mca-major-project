@@ -1,0 +1,13 @@
+{% extends 'groups/group_base.html' %}
+{% block group_content %}
+    {% if user.email == 'arkajit.18@gmail.com' %}
+        <h3>Are you sure you want to delete the group: {{ group.name }}?</h3>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Confirm Delete" class="btn btn-danger btn-large">
+            <a class="btn btn-simple btn-large btn-default" href="{% url 'groups:single' slug=group.slug %}">Cancel</a>
+        </form>
+    {% else %}
+        <h3>Sorry! Only the Admin is responsible for deleting groups.</h3>
+    {% endif %}
+{% endblock %}

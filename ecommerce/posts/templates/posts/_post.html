@@ -1,0 +1,31 @@
+<div class="post media">
+    <div class="col-12">
+        <h3><a href="{% url 'posts:single_comments' email=post.user.email pk=post.pk %}">{{ post.message_html | safe }}</a></h3>
+        <h5>Comments: {{ post.comments.count }}</h5>
+    </div>
+    <div class="media-body col-lg-12">
+        <!-- <strong>{{ post.user.username }}</strong> -->
+        <h5 class="media-heading">
+            <span class="username">
+                <a href="{% url 'posts:for_user' email=post.user.email %}">{{ post.user.email }}</a>
+            </span>
+            <small>
+                <time class="time text-muted">
+                    <a href="{% url 'posts:single' email=post.user.email pk=post.pk %}">{{ post.created_date }}</a>
+                </time>
+            </small>
+        </h5>
+        <div class="media-footer btn-group">
+            {% if user.is_authenticated and post.user == user %}
+                <a href="{% url 'posts:delete' pk=post.pk %}" title="delete" class="btn btn-simple">
+                    <i class="fas fa-eraser" aria-hidden="true"></i>
+                    <span class="text-danger icon-label">Delete</span>
+                </a>
+                <a href="{% url 'posts:edit' pk=post.pk %}" title="edit" class="btn btn-simple">
+                    <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                    <span class="text-warning icon-label">Edit</span>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>

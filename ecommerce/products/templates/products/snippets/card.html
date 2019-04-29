@@ -1,0 +1,16 @@
+<div class="card" style="width: 18rem;">
+    {% if instance.image %}
+    <a href="{{ instance.get_absolute_url }}">
+        <img class="card-img-top" src="{{ instance.image.url }}" alt="{{ instance.title }} logo">
+    </a>
+    {% endif %}
+    <div class="card-body text-center">
+        <h4 class="card-title">{{ instance.title | truncatewords:'5' }}</h4>
+        <h5 class="text-center">${{ product.price }}</h5>
+        <p class="card-text text-left">{{ instance.description | truncatewords:'10' }}</p>
+        <a class="btn btn-primary" href="{{ instance.get_absolute_url }}">View</a>
+        {% include 'products/snippets/update_cart.html' with product=instance cart=cart %}
+    </div>
+</div>
+
+{% comment %} <img src="{% static 'img/view.png' %}" alt="view logo" style="width: 2em; height: 2em; margin-top: 20px; padding-right: 5px;"> {% endcomment %}

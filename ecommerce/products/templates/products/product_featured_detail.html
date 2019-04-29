@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title_block %}Details{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h2>{{ product.title }}</h2>
+        <p>{{ product.description }}</p>
+        <h4>{{ product.price }}</h4>
+        <img src="{{ product.image.url }}" alt="book.jpg" class="img-fluid" style="height: 15em; width: 10em;">
+    </div>
+</div>
+{% endblock %}

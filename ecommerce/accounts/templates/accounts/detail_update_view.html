@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title_block %}Subscribe{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            {%if title %}<h1 class="display-3 my-3">{{ title }}</h1>{% endif %}
+            <hr>
+        </div>
+        <div class="col-12 col-md-6">
+            <form method="POST" action="{% if action_url %}{{ action_url }}{% endif %}">{% load bootstrap3 %}
+                {% csrf_token %}
+                {% if next_url %}
+                    <input type="hidden" name="next" value="{{ next_url }}">
+                {% endif %}
+                {% bootstrap_form form %}
+                <label for="disabled-email">Email</label>
+                <input class="form-control" id="disable-email" type="text" value="{{ request.user.email }}" disabled><small class="form-text text-muted">Cannot change email</small><br>
+                <button type="submit" class="btn btn-success btn-lg my-3">Save</button>
+                <a href="{% url 'password_change' %}">Change Password</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

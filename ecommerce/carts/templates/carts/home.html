@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title_block %}Cart{% endblock %}
+{% block content %}
+    <div class="col-12">
+        <h1 class="display-3">Cart</h1>
+        <hr>
+    </div>
+    {% if cart.products.exists %}
+        <table class="table cart-table">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Quantity</th>
+                {% comment %}<th scope="col">Quantity</th>{% endcomment %}
+                <th scope="col">Product Price</th>
+                </tr>
+            </thead>
+            <tbody class="cart-body">
+                {% for product in cart.products.all %}
+                    <tr class="cart-products">
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td><a href="{{ product.get_absolute_url }}">{{ product.title }}</a> {% include 'carts/snippets/remove_product.html' with product_id=product.id %}</td>
+                    <td>{% include 'carts/snippets/product_quantity.html' with product_id=product.id %}</td>
+                    {% comment %}<td>{% include 'carts/snippets/product_quantity.html' with product_id=product.id %}</td>{% endcomment %}
+                    <td id="product-price-{{ product.id }}">{{ product.price }}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                <td colspan="3"></td>
+                <td><b>Subtotal:</b> <span class="cart-subtotal">{{ cart.subtotal }}</span></td>
+                </tr>
+                <tr>
+                    <td colspan="3"></td>
+                    <td><b>Total:</b> <span class="cart-total">{{ cart.total }}</span></td>
+                </tr>
+                <tr>
+                    <td colspan="3"></td>
+                    <td><a class="btn btn-block btn-success" href="{% url 'carts:checkout' %}">Checkout</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="cart-item-remove-form" style="display: none;">
+            {% include 'carts/snippets/remove_product.html' %}
+        </div>
+        <div class="cart-item-quantity-form" style="display: none;">
+            {% include 'carts/snippets/product_quantity.html' %}
+        </div>
+    {% else %}
+        <p class="lead">Cart is empty!</p>
+    {% endif %}
+{% endblock %}

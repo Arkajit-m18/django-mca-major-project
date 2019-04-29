@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title_block %}Featured Products{% endblock %}
+{% block content %}
+<div class="row">
+    {% if not product_list %}
+        <p>No Products!</p>
+    {% else %}
+        {% for product in product_list %}
+            <div class="col">
+                {{ forloop.counter }}
+                {% include 'products/snippets/card.html' with instance=product%}
+                {% if forloop.counter|divisibleby:3 %}
+                    </div></div>
+                    <div class="row">
+                        <div class="col-12">
+                            <hr>
+                        </div>
+                    </div>
+                {% else %}
+                    </div>
+                {% endif %}
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

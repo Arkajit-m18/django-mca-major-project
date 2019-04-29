@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title_block %}Accounts Home{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <h1 class="display-3">Account</h1>
+            <hr>
+        </div>
+        <div class="col-12 col-md-3 my-3">
+            <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Support</h5>
+                  <div class="list-group">
+                      <a class="list-group-item" href="{% url 'about' %}">About</a>
+                      <a class="list-group-item" href="{% url 'contacts' %}">Contacts</a>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-3 my-3" id="billing">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Billing</h5>
+                    <div class="list-group">
+                        <a class="list-group-item" href="{% url 'addresses:create_address' %}">Add New Addresses</a>
+                        <a class="list-group-item" href="{% url 'addresses:update_address' %}">Update Addresses</a>
+                        <a class="list-group-item" href="{% url 'billing-payment-method' %}">Payment Methods</a>
+                        <a class="list-group-item" href="{% url 'orders:all-orders' %}">Orders</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <a class="list-group-item" href="#">Name</a> -->
+        <div class="col-12 col-md-3 my-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">User Details</h5>
+                    <div class="list-group">
+                        <a class="list-group-item" href="{% url 'accounts:user-update' %}">Update Details</a>
+                        <a class="list-group-item" href="{% url 'password_change' %}">Change Password</a>
+                        <a class="list-group-item" href="{% url 'digital_library' %}">Library</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-3 my-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Preferences</h5>
+                    <div class="list-group">
+                        <a class="list-group-item" href="{% url 'marketing_pref' %}">Email Marketing</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-3 my-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">History</h5>
+                    <div class="list-group">
+                        <a class="list-group-item" href="{% url 'products:products-history' %}">Recently Viewed</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

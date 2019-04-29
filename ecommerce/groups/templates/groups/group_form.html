@@ -1,0 +1,19 @@
+{% extends 'groups/group_base.html' %}
+{% load bootstrap3 %}
+{% block content %}
+    <div class="container">
+        <div class="col-12">
+            {% if form.instance.pk %}
+                <h1 class="display-3">Update Group:</h1>
+            {% else %}
+                <h1 class="display-3">Create a new group:</h1>
+            {% endif %}
+            <hr>
+        </div>
+        <form method="POST" id="groupForm">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <input type="submit" class="btn btn-primary btn-large" value="Create">
+        </form>
+    </div>
+{% endblock %}
