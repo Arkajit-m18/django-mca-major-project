@@ -104,6 +104,7 @@ def upload_product_file_location(instance, filename):
 
 class ProductFile(models.Model):
     product = models.ForeignKey(Product, on_delete = models.CASCADE)
+    name = models.CharField(max_length = 120, null = True, blank = True)
     product_file = models.FileField(upload_to = upload_product_file_location, storage = FileSystemStorage(location = settings.PROTECTED_ROOT))
     free = models.BooleanField(default = False)
     user_required = models.BooleanField(default = False)
@@ -121,5 +122,8 @@ class ProductFile(models.Model):
         return self.product.get_absolute_url()
 
     @property
-    def name(self):
-        return get_filename(self.product_file.name)
+    def display_name(self):
+        og_name = get_filename(self.product_file.name)
+        if self.name:
+            return self.name
+        return og_name

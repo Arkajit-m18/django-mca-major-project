@@ -6,9 +6,9 @@ from . import forms
 
 def home_page(request):
     context = {
-        'title': 'Simple Commerce',
-        'content': 'Welcome to Simple Commerce!',
-        'tag': 'Buying products made simple!'
+        'title': 'Easy Commerce',
+        'content': 'Welcome to Easy Commerce!',
+        'tag': 'Buying products were never easier!'
     }
     return render(request, 'home_page.html', context)
 
@@ -18,8 +18,8 @@ def about_page(request):
         'content': '',
         'tag': '''
             Never doubt before buying products again.
-            Discuss with your peers.
-            Post about any queries.
+            Discuss & Chat with your peers.
+            Post about any queries or ask someone of help.
             Never regret again!
         '''
     }

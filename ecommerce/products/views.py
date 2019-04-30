@@ -42,11 +42,22 @@ class ProductListView(ListView):
 
 class UserProductHistoryView(LoginRequiredMixin, ListView):
     template_name = 'products/user_product_history.html'
+    paginate_by = 3
 
     def get_context_data(self, **kwargs):
         context = super(UserProductHistoryView, self).get_context_data(**kwargs)
         cart_obj, new_obj = Cart.objects.new_or_get(self.request)
         context['cart'] = cart_obj
+        all_views = self.request.user.objectviewed_set.by_model(model_class = Product)
+        paginator = Paginator(all_views, self.paginate_by)
+        page = self.request.GET.get('page')
+        try:
+            views = paginator.page(page)
+        except PageNotAnInteger:
+            views = paginator.page(1)
+        except EmptyPage:
+            views = paginator.page(paginator.num_pages)
+        context['view_list'] = views
         return context
     
     def get_queryset(self, *args, **kwargs):

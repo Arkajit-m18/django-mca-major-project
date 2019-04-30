@@ -11,10 +11,19 @@
     {% else %}
         {% for obj in object_list %}
             <div class="col">
-                {{ forloop.counter }}
                 {% include 'products/snippets/card.html' with instance=obj.content_obj%}
+                {% if forloop.counter|divisibleby:3 %}
+                    </div></div>
+                    <div class="row">
+                        <div class="col-12">
+                            <hr>
+                        </div>
+                    </div>
+                {% else %}
+                    </div>
+                {% endif %}
         {% endfor %}
-        </div>
     {% endif %}
 </div>
+{% include 'base/pagination.html' with instance=view_list %}
 {% endblock %}

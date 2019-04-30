@@ -31,14 +31,14 @@ BASE_URL = 'localhost:8000'
 ALLOWED_HOSTS = []
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'my_user@gmail.com' 
+EMAIL_HOST_USER = 'my_email@gmail.com' 
 EMAIL_HOST_PASSWORD = 'my_pass'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'django ecommerce <my_user@gmail.com>'
+DEFAULT_FROM_EMAIL = 'django ecommerce <my_email@gmail.com>'
 
 MANAGERS = (
-    ('Arkajit Mondal', 'my_user@gmail.com'),
+    ('Arkajit Mondal', 'my_email@gmail.com'),
 )
 
 ADMINS = MANAGERS
@@ -161,7 +161,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Calcutta' # 'UTC'
 
 USE_I18N = True
 

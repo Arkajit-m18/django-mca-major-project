@@ -38,6 +38,7 @@ urlpatterns = [
     path('account/', include('accounts.urls', namespace = 'accounts')),
     path('accounts/', include('accounts.passwords.urls')),
     path('login/', LoginView.as_view(), name = 'login'),
+    path('analytics/', include('analytics.urls', namespace = 'analytics')),
     # path('login/', login_page, name = 'login'),
     path('register/guest/', GuestRegisterView.as_view(), name = 'guest_register'),
     # path('register/guest/', guest_register_view, name = 'guest_register'),

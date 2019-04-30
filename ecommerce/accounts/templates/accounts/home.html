@@ -63,4 +63,38 @@
                 </div>
             </div>
         </div>
+        <div class="col-12 col-md-3 my-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Groups</h5>
+                    <div class="list-group">
+                        <a class="list-group-item" href="{% url 'groups:all' %}">All Groups</a>
+                        <a class="list-group-item" href="{% url 'groups:create' %}">Create New Group</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-3 my-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Chatrooms</h5>
+                    <div class="list-group">
+                        <a class="list-group-item" href="{% url 'rooms:all' %}">All Rooms</a>
+                        <a class="list-group-item" href="{% url 'rooms:new' %}">Create New Room</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if request.user.is_staff or request.user.is_admin %}
+        <div class="col-12 col-md-3 my-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Admin</h5>
+                    <div class="list-group">
+                        <a class="list-group-item" href="{% url 'analytics:sales' %}">Sales Data</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
 {% endblock %}

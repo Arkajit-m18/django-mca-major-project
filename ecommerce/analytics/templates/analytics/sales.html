@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block title_block %}Sales Data{% endblock %}
+{% block content %}
+    <div class="row my-5">
+        <div class="col-12">
+            <h1 class="display-3">Sales Data</h1>
+            <hr>
+        </div>
+    </div>
+    <div class="row my-5">
+        <div class="col-4">
+            <h3 class="display-6">This Week's Sales</h3>
+            <hr>
+            <p class="lead">Recent: (Total ${{ this_week.recent_data.total__sum|floatformat:2 }})</p>
+            <ul>
+                {% for order in this_week.recent|slice:":10" %}
+                    <li class="my-2">
+                        Order #{{ order.order_id }}
+                        ${{ order.total }}<br>
+                        <small>{{ order.updated|timesince }} ago</small>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col">
+            <canvas class="render-sales-chart" id="thisWeekSales" width="400" height="400" data-type="week"></canvas>
+        </div>
+    </div>
+    <hr>
+    <div class="row my-5">
+        <div class="col-4">
+            <h3 class="display-6">Last Month's Sales</h3>
+            <hr>
+            <p class="lead">Recent: (Total ${{ last_four_weeks.recent_data.total__sum|floatformat:2 }})</p>
+            <p class="lead">Shipped: (Total: ${% if last_four_weeks.shipped_data.total__sum %}{{ last_four_weeks.shipped_data.total__sum|floatformat:2 }}{% else %}0{% endif %})</p>
+            <p class="lead">Paid: (Total ${{ last_four_weeks.paid_data.total__sum|floatformat:2 }})</p>
+        </div>
+        <div class="col">
+            <canvas class="render-sales-chart" id="fourWeekSales" width="400" height="400" data-type="4weeks"></canvas>
+        </div>
+    </div>
+    <hr>
+    <div class="row my-5">
+        <div class="col-12">
+            <h3 class="display-6">Today's Sales</h3>
+            <hr>
+        </div>
+        <div class="col">
+            <p class="lead">Recent: (Total ${{ today.recent_data.total__sum|floatformat:2 }})</p>
+            <ul>
+                {% for order in today.recent|slice:":8" %}
+                    <li class="my-2">
+                        Order #{{ order.order_id }}
+                        ${{ order.total }}<br>
+                        <small>{{ order.updated|timesince }} ago</small>
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+        <div class="col">
+            <p class="lead">Shiped: (Total ${{ today.shipped_data.total__sum|floatformat:2 }})</p>
+            <ul>
+                {% for order in today.shipped|slice:":8" %}
+                    <li>
+                        Order #{{ order.order_id }}
+                        ${{ order.total }}<br>
+                        <small>{{ order.updated|timesince }} ago</small>
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+        <div class="col">
+            <p class="lead">Paid: (Total ${{ today.paid_data.total__sum|floatformat:2 }})</p>
+            <ul>
+                {% for order in today.paid|slice:":8" %}
+                    <li class="my-2">
+                        Order #{{ order.order_id }}
+                        ${{ order.total }}<br>
+                        <small>{{ order.updated|timesince }} ago</small>
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+    <hr>
+{% endblock %}
