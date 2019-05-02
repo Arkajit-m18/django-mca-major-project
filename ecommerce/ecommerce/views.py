@@ -6,24 +6,24 @@ from . import forms
 
 def home_page(request):
     context = {
-        'title': 'Easy Commerce',
-        'content': 'Welcome to Easy Commerce!',
-        'tag': 'Buying products were never easier!'
+        'title': 'T H E B O O K S H O P',
+        'content': 'Welcome to The Bookshop!',
+        'tag': 'Buying books were never easier!'
     }
     return render(request, 'home_page.html', context)
 
 def about_page(request):
     context = {
         'title': 'About',
-        'content': '',
+        'content': 'Get reading!!',
         'tag': '''
-            Never doubt before buying products again.
+            Never doubt before buying books again.
             Discuss & Chat with your peers.
             Post about any queries or ask someone of help.
-            Never regret again!
+            Never be in doubt again!
         '''
     }
-    return render(request, 'home_page.html', context)
+    return render(request, 'about_page.html', context)
 
 def contacts_page(request):
     form = forms.ContactForm(request.POST or None)

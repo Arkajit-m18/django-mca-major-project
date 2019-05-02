@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 {% block title_block %}Contacts{% endblock %}
 {% block content %}
-    <div class="text-center">
-        <h1>{{ title }}</h1>
+    <div class="-col-12">
+        <h1 class="display-3">{{ title }}</h1>
+        <hr>
     </div>
     <div class="row">
         <div class="col">
-            <div class="col-md-6 col-12 mx-auto">
+            <div class="col-md-6 col-12">
                 <form class="contact-form" action="{% url 'contacts' %}" method="POST">
                     {% csrf_token %}
                     {{ form }}

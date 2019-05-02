@@ -10,10 +10,11 @@
     <div class="col-12 col-md-6">
         <p class="lead">{{ product.description | linebreaks }}</p>
         <h4>${{ product.price }}</h4>
-        <img src="{{ product.image.url }}" alt="book.jpg" class="img-fluid" style="height: 25em; width: 20em;">
+        <img src="{{ product.image.url }}" alt="book.jpg" class="img-fluid" style="height: 30em; width: 20em;">
     </div>
     <div class="col-12 col-md-6">
         {% include 'products/snippets/update_cart.html' with product=product cart=cart %}
     </div>
 </div>
+<hr>
 {% endblock %}
