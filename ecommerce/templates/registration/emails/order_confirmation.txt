@@ -1,0 +1,11 @@
+Hello,
+
+We have received your order. The order #{{ order_id }} is currently being ready for dispatch.
+
+Thank you for your order.
+
+Get reading! And we hope to see you back soon! 
+
+Thank you.
+
+django ecommerce

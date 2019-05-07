@@ -4,6 +4,8 @@ from django.urls import reverse
 from django.conf import settings
 from django.db.models import Count, Sum, Avg
 from django.utils import timezone
+from django.template.loader import get_template
+from django.core.mail import send_mail
 
 from carts.models import Cart
 from ecommerce.utils import unique_order_id_generator
@@ -175,6 +177,29 @@ class Order(models.Model):
                 self.save()
                 self.update_purchases()
         return self.status
+
+    def send_confirmation(self):
+        base_url = getattr(settings, 'BASE_URL', '127.0.0.1:8000')
+        context = {
+            'order_id': self.order_id
+        }
+        txt_ = get_template('registration/emails/order_confirmation.txt').render(context)
+        html_ = get_template('registration/emails/order_confirmation.html').render(context)
+        subject = 'Order confirmation'
+        from_email = settings.DEFAULT_FROM_EMAIL
+        recipient_list = [self.billing_profile.user.email]
+
+        sent_mail = send_mail(
+            subject = subject,
+            message = txt_,
+            from_email = from_email,
+            recipient_list = recipient_list,
+            html_message = html_,
+            fail_silently = False 
+        )
+        if sent_mail:
+            return sent_mail
+        return False
 
 def pre_save_create_order_id(sender, instance, *args, **kwargs):
     if not instance.order_id:
