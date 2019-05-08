@@ -31,14 +31,14 @@ BASE_URL = 'localhost:8000'
 ALLOWED_HOSTS = []
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'my_mail@gmail.com' 
+EMAIL_HOST_USER = 'my_email@gmail.com' 
 EMAIL_HOST_PASSWORD = 'my_pass'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'django ecommerce <my_mail@gmail.com>'
+DEFAULT_FROM_EMAIL = 'django ecommerce <my_email@gmail.com>'
 
 MANAGERS = (
-    ('Me', 'my_mail@gmail.com'),
+    ('Me', 'my_email@gmail.com'),
 )
 
 ADMINS = MANAGERS
