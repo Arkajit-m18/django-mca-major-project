@@ -12,6 +12,7 @@ from ecommerce.utils import unique_order_id_generator
 from billing.models import BillingProfile
 from addresses.models import Address
 from products.models import Product
+from accounts.models import GuestEmail
 
 import math, datetime
 
@@ -178,7 +179,14 @@ class Order(models.Model):
                 self.update_purchases()
         return self.status
 
-    def send_confirmation(self):
+    def send_confirmation(self, request):
+        email_recipient = None
+        guest_email_id = request.session.get('guest_email_id')
+        if request.user.is_authenticated:
+            email_recipient = self.billing_profile.user.email
+        elif guest_email_id is not None:
+            guest_email_obj = GuestEmail.objects.get(id = guest_email_id)
+            email_recipient = guest_email_obj.email
         base_url = getattr(settings, 'BASE_URL', '127.0.0.1:8000')
         context = {
             'order_id': self.order_id
@@ -187,7 +195,7 @@ class Order(models.Model):
         html_ = get_template('registration/emails/order_confirmation.html').render(context)
         subject = 'Order confirmation'
         from_email = settings.DEFAULT_FROM_EMAIL
-        recipient_list = [self.billing_profile.user.email]
+        recipient_list = [email_recipient]
 
         sent_mail = send_mail(
             subject = subject,

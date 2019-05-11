@@ -23,16 +23,16 @@
                     <td><a href="{{ product.get_absolute_url }}">{{ product.title }}</a> {% include 'carts/snippets/remove_product.html' with product_id=product.id %}</td>
                     <td>{% include 'carts/snippets/product_quantity.html' with product_id=product.id %}</td>
                     {% comment %}<td>{% include 'carts/snippets/product_quantity.html' with product_id=product.id %}</td>{% endcomment %}
-                    <td id="product-price-{{ product.id }}">{{ product.price }}</td>
+                    <td id="product-price-{{ product.id }}">${{ product.price }}</td>
                     </tr>
                 {% endfor %}
                 <tr>
                 <td colspan="3"></td>
-                <td><b>Subtotal:</b> <span class="cart-subtotal">{{ cart.subtotal }}</span></td>
+                <td><b>Subtotal:</b> <span class="cart-subtotal">${{ cart.subtotal }}</span></td>
                 </tr>
                 <tr>
                     <td colspan="3"></td>
-                    <td><b>Total:</b> <span class="cart-total">{{ cart.total }}</span></td>
+                    <td><b>Total:</b> <span class="cart-total">${{ cart.total }}</span></td>
                 </tr>
                 <tr>
                     <td colspan="3"></td>
