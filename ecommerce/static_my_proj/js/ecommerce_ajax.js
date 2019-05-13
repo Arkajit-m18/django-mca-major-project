@@ -197,7 +197,7 @@ $(document).ready(function() {
               <th scope="row">${i}</th>
               <td><a href="${element.url}">${element.name}</a>${newCartItemRemove.html()}</td>
               <td>${newCartQuantityUpdate.html()}</td>
-              <td id="product-price-${element.id}">${element.price}</td>
+              <td id="product-price-${element.id}">$${element.price}</td>
             </tr>
             `);
             i--;

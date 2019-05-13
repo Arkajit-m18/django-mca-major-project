@@ -48,7 +48,7 @@ class UserProductHistoryView(LoginRequiredMixin, ListView):
         context = super(UserProductHistoryView, self).get_context_data(**kwargs)
         cart_obj, new_obj = Cart.objects.new_or_get(self.request)
         context['cart'] = cart_obj
-        all_views = self.request.user.objectviewed_set.by_model(model_class = Product)
+        all_views = self.request.user.objectviewed_set.by_model(model_class = Product).distinct()
         paginator = Paginator(all_views, self.paginate_by)
         page = self.request.GET.get('page')
         try:
@@ -61,7 +61,7 @@ class UserProductHistoryView(LoginRequiredMixin, ListView):
         return context
     
     def get_queryset(self, *args, **kwargs):
-        views = self.request.user.objectviewed_set.by_model(model_class = Product)
+        views = self.request.user.objectviewed_set.by_model(model_class = Product).distinct()
         return views
 
 class ProductDetailView(ObjectViewedMixin, DetailView):

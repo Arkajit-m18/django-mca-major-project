@@ -6,14 +6,18 @@
         <hr>
     </div>
     <div class="row">
-        <div class="col">
-            <div class="col-md-6 col-12">
-                <form class="contact-form" action="{% url 'contacts' %}" method="POST">
-                    {% csrf_token %}
-                    {{ form }}
-                    <button type="submit" class="btn btn-primary my-3">Submit</button>
-                </form>
-            </div>
+        <div class="col-md-6">
+            <form class="contact-form" action="{% url 'contacts' %}" method="POST">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit" class="btn btn-primary my-3">Submit</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <p class="lead text-right">In case of any queries, leave them at <b>djangoecommercesupport@gmail.com</b></p>
+            <p class="lead text-right">Or, Give us a call at <b>+91-9876543210</b></p>
+            <p class="lead text-right">We are happy to help you!</p>
+            <p class="lead text-right">Get reading!!</p>
         </div>
     </div>
 {% endblock %}

@@ -13,6 +13,10 @@ class ContactForm(forms.Form):
         'class': 'form-control',
         'placeholder': 'Your message'
     }))
+    feedback = forms.CharField(label = "Leave a feedback, it's helpful", widget = forms.Textarea(attrs = {
+        'class': 'form-control',
+        'placeholder': 'Your feedback'
+    }))
 
     def clean_fullname(self):
         fullname = self.cleaned_data.get('fullname')
@@ -31,3 +35,9 @@ class ContactForm(forms.Form):
         if len(content) == 1:
             raise forms.ValidationError("Content must be greater than a character")
         return content
+
+    def clean_feedback(self):
+        feedback = self.cleaned_data.get('feedback')
+        if len(feedback) == 1:
+            raise forms.ValidationError("Feedback must be greater than a character")
+        return feedback

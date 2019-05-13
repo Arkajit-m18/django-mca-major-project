@@ -32,9 +32,6 @@ def contacts_page(request):
         'form': form
     }
     if form.is_valid():
-        print(form.cleaned_data.get('fullname'))
-        print(form.cleaned_data.get('email'))
-        print(form.cleaned_data.get('content'))
         if request.is_ajax():
             return JsonResponse({'message': 'Thank you for your submission'})
     if form.errors:
