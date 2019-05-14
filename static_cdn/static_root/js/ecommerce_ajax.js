@@ -278,10 +278,10 @@ $(document).ready(function() {
 
   var finalizeCheckoutForm = $(".finalize-checkout");
   
-  function checkoutLoader(checkoutBtn, defaultTxt, doCheckout) {
+  function renderLoader(checkoutBtn, defaultTxt, doCheckout, renderTxt = "") {
     if (doCheckout) {
       checkoutBtn.addClass("disabled");
-      checkoutBtn.html(`<i class="fa-spin fas fa-spinner"></i> Finalizing...`);
+      checkoutBtn.html(`<i class="fa-spin fas fa-spinner"></i> ${renderTxt}...`);
     } else {
       checkoutBtn.removeClass("disabled");
       checkoutBtn.html(defaultTxt);
@@ -291,10 +291,46 @@ $(document).ready(function() {
     var thisForm = $(this);
     var finalizeCheckoutButton = thisForm.find("[type='submit']");
     var finalizeCheckoutBtnTxt = finalizeCheckoutButton.text();
-    checkoutLoader(finalizeCheckoutButton, "", true);
+    renderLoader(finalizeCheckoutButton, "", true, "Finalizing");
     setTimeout(function() {
-      checkoutLoader(finalizeCheckoutButton, finalizeCheckoutBtnTxt, false)
+      renderLoader(finalizeCheckoutButton, finalizeCheckoutBtnTxt, false)
     }, 8500);
+  });
+
+  var registrationForm = $(".registration-form");
+
+  registrationForm.submit(function(event) {
+    var thisForm = $(this);
+    var registerBtn = thisForm.find("[type='submit']");
+    var registerBtnTxt = registerBtn.text();
+    renderLoader(registerBtn, "", true, "Signing up");
+    setTimeout(function() {
+      renderLoader(registerBtn, registerBtnTxt, false);
+    }, 8500);
+  });
+
+  var loginForm = $(".login-form");
+
+  loginForm.submit(function(event) {
+    var thisForm = $(this);
+    var loginBtn = thisForm.find("[type='submit']");
+    var loginBtnTxt = loginBtn.text();
+    renderLoader(loginBtn, "", true, "Signing in");
+    setTimeout(function() {
+      renderLoader(loginBtn, loginBtnTxt, false);
+    }, 800);
+  });
+
+  var reactivationForm = $(".reactivation-form");
+
+  reactivationForm.submit(function(event) {
+    var thisForm = $(this);
+    var reactivateBtn = thisForm.find("[type='submit']");
+    var reactivateBtnTxt = reactivateBtn.text();
+    renderLoader(reactivateBtn, "", true, "Resending");
+    setTimeout(function() {
+      renderLoader(reactivateBtn, reactivateBtnTxt, false);
+    }, 5500);
   });
 
 });

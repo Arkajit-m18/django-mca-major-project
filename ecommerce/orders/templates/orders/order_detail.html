@@ -15,9 +15,9 @@
             </p>
             <p class="lead"><b>Shipping Address:</b> {{ order.shipping_address.get_address }}</p>
             <p class="lead"><b>Billing Address:</b> {{ order.billing_address.get_address }}</p>
-            <p class="lead"><b>Order Subtotal:</b> {{ order.cart.total }}</p>
-            <p class="lead"><b>Shipping total:</b> {{ order.shipping_total }}</p>
-            <p class="lead"><b>Order total:</b> {{ order.total }}</p>
+            <p class="lead"><b>Order Subtotal:</b> ${{ order.cart.total }}</p>
+            <p class="lead"><b>Shipping total:</b> ${{ order.shipping_total }}</p>
+            <p class="lead"><b>Order total:</b> ${{ order.total }}</p>
             <p class="lead"><b>Order Status:</b> {{ order.status }}</p>
             <p class="lead"><b>Shipping Status:</b> {{ order.get_shipping_status }}</p>
         </div>

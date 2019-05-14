@@ -38,7 +38,7 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'django ecommerce <my_email@gmail.com>'
 
 MANAGERS = (
-    ('Me', 'my_email@gmail.com'),
+    ('Arkajit Mondal', 'my_email@gmail.com'),
 )
 
 ADMINS = MANAGERS

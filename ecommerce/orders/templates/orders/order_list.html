@@ -22,7 +22,7 @@
                             <td><a href="{{ order.get_absolute_url }}">{{ order.order_id }}</a></td>
                             <td>{{ order.status }}</td>
                             <td>{{ order.get_shipping_status }}</td>
-                            <td>{{ order.total }}</td>
+                            <td>${{ order.total }}</td>
                         </tr>
                         {% empty %}
                             <tr>
