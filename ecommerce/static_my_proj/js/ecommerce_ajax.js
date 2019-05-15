@@ -202,8 +202,8 @@ $(document).ready(function() {
             `);
             i--;
           });
-          cartBody.find(".cart-subtotal").text(data.subtotal);
-          cartBody.find(".cart-total").text(data.total);
+          cartBody.find(".cart-subtotal").text(`$${data.subtotal}`);
+          cartBody.find(".cart-total").text(`$${data.total}`);
         } else {
           window.location.href = currentUrl;
         }
@@ -261,8 +261,8 @@ $(document).ready(function() {
       method: refreshCartQuantityMethod,
       data: data,
       success: function(data){
-        cartBody.find(".cart-subtotal").text(data.subtotal);
-        cartBody.find(".cart-total").text(data.total);
+        cartBody.find(".cart-subtotal").text(`$${data.subtotal}`);
+        cartBody.find(".cart-total").text(`$${data.total}`);
         cartBody.find(`#product-price-${productId}`).text(`$${data.original_price} X ${data.product_qty} = $${data.new_price}`);
       },
       error: function(errorData) {
